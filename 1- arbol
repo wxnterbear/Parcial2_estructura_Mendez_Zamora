@@ -1,0 +1,98 @@
+#include <iostream>
+
+using namespace std;
+
+struct Nodo{
+	
+	int num;
+	Nodo *der;
+	Nodo *izq;
+	
+};
+
+typedef struct Nodo *arbol;
+
+void insertNodoRaiz (arbol& raiz, int valor){
+	
+	arbol x = new struct Nodo;
+	x -> num = valor;
+	x -> der = NULL;
+	x -> izq = NULL;
+	
+	raiz = x;
+	
+}
+
+void insertNodo(arbol& raiz, int valor) {
+	
+    if (raiz == NULL) {
+    	
+        insertNodoRaiz(raiz, valor);
+        
+    } else {
+    	
+        if (valor < raiz->num) {
+        	
+            insertNodo(raiz->izq, valor);
+            
+        } else if (valor > raiz->num) {
+        	
+            insertNodo(raiz->der, valor);
+            
+        } else {
+        	
+            cout << "El valor ya ha sido ingresado en el arbol previamente." << endl;
+            
+        }
+    }
+}
+
+void mostrarArbolInorden (arbol& raiz){
+	
+	
+	if (raiz == NULL){
+           
+            return;
+        }
+    
+    mostrarArbolInorden (raiz -> izq);
+    cout << " -- "<< raiz -> num << " -- " ;
+    mostrarArbolInorden (raiz -> der);
+} 
+
+
+int main (){
+    
+    arbol raiz = NULL;
+    int valor;
+    
+    do {
+        
+    cout << endl << "Ingrese el numero a insertar (digite 0 para salir): ";
+				cin >> valor;
+				cout <<endl;
+				
+				if (valor != 0) {
+                    	
+                        insertNodo(raiz, valor);
+                    }
+
+                    cout << endl << endl;
+    }while (valor != 0);
+    
+    if (raiz != NULL){
+							
+							cout << "Mostrando los datos en Inorden:" << endl << endl;
+							mostrarArbolInorden (raiz);
+							cout << endl;
+							
+						} 
+						else {
+							
+							cout << "El arbol esta vacio" << endl;
+						
+						}
+    
+    
+    
+}
